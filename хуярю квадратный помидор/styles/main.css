@@ -1,0 +1,230 @@
+.screen__container {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    /* overflow: hidden; */
+}
+
+.screen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #ff05ff04;
+
+    /* debug */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen--main {
+    background-color: rgb(67, 103, 246);
+    position: relative;
+}
+
+.frame {
+    display: flex;
+    flex-direction: column;
+}
+
+/* pomodoro */
+.pomodoro {
+    position: relative;
+    width: 40rem;
+    height: 40rem;
+    /* box-shadow: 0 0 2px 2px white; */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pomodoro__half {
+    width: calc(100% - 2px);
+    height: calc(50% - 2px);
+    border: 1px solid black;
+    background-color: var(--color-pomodoro);
+}
+
+.pomodoro__half--top {
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+
+    /* for timer */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.pomodoro__half--bottom {
+    border-bottom-left-radius: 40% 70%;
+    border-bottom-right-radius: 40% 70%;
+}
+
+.pomodoro-branch__origin {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    display: flex;
+    justify-content: center;
+}
+
+.pomodoro__leaf {
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    background-color: var(--color-pomodoro-leaf);
+    clip-path: polygon(61% 0, 100% 13%, 54% 13%, 46% 54%, 37% 14%, 0 15%, 28% 0);
+}
+
+.pomodoro__branch {
+    content: "";
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    top: -2rem;
+    background-color: var(--color-pomodoro-leaf);
+}
+
+.pomodoro__timer {
+    /* temporary */
+    font-size: 10rem;   
+}
+
+/* controls */
+.controls-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    margin-top: 1rem;
+}
+
+.control--button {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    background-color: var(--color-pomodoro);
+    box-shadow: 0 0 30px 2px #0000004f inset, 0 0 0 1px black;
+    cursor: pointer;
+
+    /* content */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 0 1rem;
+}
+
+.control__toggle.play::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    border-top: 2.5rem solid transparent;
+    border-bottom: 2.5rem solid transparent;
+    border-left: 3rem solid white;
+    transform: translate(0.7rem);
+}
+
+.control__toggle.pause::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 1rem;
+    height: 5rem;
+    background-color: white;
+    transform: translate(-1rem);
+}
+
+.control__toggle.pause::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 1rem;
+    height: 5rem;
+    background-color: white;
+    transform: translate(1rem);
+}
+
+.control__skip::before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    border-top: 2.5rem solid transparent;
+    border-bottom: 2.5rem solid transparent;
+    border-left: 3rem solid white;
+}
+
+.control__skip::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+
+    border-top: 2.5rem solid transparent;
+    border-bottom: 2.5rem solid transparent;
+    border-left: 3rem solid white;
+    transform: translate(2rem);
+}
+
+/* marquee */
+.marquee-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10rem;
+    box-shadow: 0 0 2px 2px black;
+}
+
+.marquee {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.marquee-scale {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+
+    width: 0;
+    height: 0;
+    border-left: 2rem solid transparent;
+    border-right: 2rem solid transparent;
+    border-top: 4rem solid white;
+}
+
+.timespan {
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timespan--work {
+    width: 25rem;
+    background-color: var(--color-pomodoro);
+}
+
+.timespan--break {
+    width: 10rem;
+    background-color: var(--color-pomodoro-leaf);
+}
+
+.timespan--longbreak {
+    width: 30rem;
+    background-color: blue;
+}

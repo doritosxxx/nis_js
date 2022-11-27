@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/main.css">
+
+    <script src="./sound.js"></script>
+    <script src="./timespan.js"></script>
+    <script src="./state.js"></script>
+    <script src="./timer.js"></script>
+    <script src="./index.js"></script>
+
+</head>
+<body>
+    <header></header>
+    <main class="screen__container">
+        <div class="screen screen--main">
+            <div class="frame">
+                
+                <div class="pomodoro">
+                    <div class="pomodoro-branch__origin">
+                        <div class="pomodoro__branch"></div>
+                        <div class="pomodoro__leaf"></div>
+                    </div>
+                    <div class="pomodoro__half pomodoro__half--top">
+                        <div class="pomodoro__timer">25:00</div>
+                        <!-- <svg></svg> -->
+                    </div>
+                    <div class="pomodoro__half pomodoro__half--bottom">
+                        <!-- <svg></svg> -->
+                    </div>
+                </div> 
+
+                <div class="controls-container">
+                    <div class="control control--button control__toggle play"></div>
+                    <div class="control control--button control__skip"></div>
+                </div>
+            </div>
+
+            <div class="marquee-container">
+                <div class="marquee"></div>
+                <div class="marquee-scale"></div>
+            </div>
+        </div>
+        <div class="screen screen--second">
+            2
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

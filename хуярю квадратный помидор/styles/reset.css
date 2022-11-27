@@ -1,0 +1,9 @@
+:root {
+    --color-pomodoro: #ff3c53;
+    --color-pomodoro-leaf: green; /* todo */
+}
+
+html, body {
+    margin: 0;
+    font-size: 10px;
+}
