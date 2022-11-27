@@ -1,0 +1,246 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: black;
+}
+
+.scene {
+    width: 100%;
+    height: 100%;
+    font-size: 1px;
+    position: relative;
+    perspective: var(--perspective);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scene, .scene div {
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+}
+
+.scene.debug .face {
+    box-shadow: 0 0 3px 3px gray inset;
+}
+
+.face {
+    background-color: rgba(255, 0, 0, 0.9);
+
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.face > * {
+    font-size: 40px;
+}
+
+/* pomodoro */
+
+:root {
+    /* maths */
+    --pi: 3.14151926;
+    --sin30: 0.5;
+    --sin60: 0.8660254037844386;
+    --cos30: var(--sin60);
+    --cos60: var(--sin30);
+
+    --perspective: 1000em;
+   
+
+    --pomodoro-radius: 1; /* treat as 1 length */
+    --pomodoro-height: 2;
+    --pomodoro-triangle-height: calc(var(--sin60) * var(--pomodoro-radius));
+
+    --pomodoro-top-layer-height: 0.3;
+    --pomodoro-bottom-layer-height: 0.3;
+    --pomodoro-2middle-layers-height: calc(var(--pomodoro-height) - calc(var(--pomodoro-top-layer-height) + var(--pomodoro-bottom-layer-height)));
+    --pomodoro-middle-layer-height: calc(var(--pomodoro-2middle-layers-height) / 2);
+
+    --pomodoro-top-layer-angle: 60deg;
+    --pomodoro-top-layer-angle-sin: var(--sin60); /* for example */
+    --pomodoro-top-layer-angle-cos: var(--cos60); /* for example */
+    --pomodoro-top-layer-length: calc(var(--pomodoro-top-layer-height) / var(--pomodoro-top-layer-angle-sin));
+    /* --pomodoro-R-minus-r:  */
+
+    /* real values */
+    --pomodoro-radius-v: calc(200em * var(--pomodoro-radius));
+    --pomodoro-diameter-v: calc(2 * var(--pomodoro-radius-v));
+    --pomodoro-height-v: calc(var(--pomodoro-height) * var(--pomodoro-radius-v));
+    --pomodoro-triangle-height-v: calc(var(--pomodoro-triangle-height) * var(--pomodoro-radius-v));
+    --pomodoro-inner-radius-v: calc(var(--pomodoro-inner-radius) * var(--pomodoro-radius-v));
+
+    --pomodoro-top-layer-height-v: calc(var(--pomodoro-top-layer-height) * var(--pomodoro-radius-v));
+    --pomodoro-bottom-layer-height-v: calc(var(--pomodoro-bottom-layer-height) * var(--pomodoro-radius-v));
+    --pomodoro-middle-layer-height-v: calc(var(--pomodoro-middle-layer-height) * var(--pomodoro-radius-v));
+
+    --pomodoro-top-layer-angle-v: calc(90deg - var(--pomodoro-top-layer-angle));
+    --pomodoro-top-layer-length-v: calc(var(--pomodoro-top-layer-length) * var(--pomodoro-radius-v));
+}
+
+@keyframes rotation {
+    from {
+        transform: rotateY(-360deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes tick {
+    from {
+        transform: rotateY(-360deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+.pomodoro {
+    width: var(--pomodoro-diameter-v);
+    height: var(--pomodoro-height-v);
+    position: absolute;
+    /* animation: rotation 8s linear infinite; */
+    transform: rotateX(-20deg);
+}
+
+.pomodoro-half {
+    position: absolute;
+    width: 100%;
+}
+
+.pomodoro-half-top {
+    top: 0;
+    background-color: rgba(0, 255, 123, 0.1);
+    animation: 48s tick infinite linear;
+    height: calc(var(--pomodoro-middle-layer-height-v) + var(--pomodoro-top-layer-height-v));
+}
+
+.pomodoro-half-bottom {
+    bottom: 0;
+    background-color: rgba(246, 71, 23, 0.1);
+    height: calc(var(--pomodoro-middle-layer-height-v) + var(--pomodoro-bottom-layer-height-v));
+}
+
+/* layers */
+
+.pomodoro-layer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.pomodoro-layer-mid {
+    height: var(--pomodoro-middle-layer-height-v);
+}
+
+.pomodoro-layer-bottom{
+    height: var(--pomodoro-bottom-layer-height-v);
+}
+
+.pomodoro-layer-top {
+    height: var(--pomodoro-top-layer-height-v);
+}
+
+/* mid layer faces */
+.pomodoro-layer-mid > .face {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.pomodoro-layer-mid > .face-front-center {
+    transform: translateZ(var(--pomodoro-triangle-height-v));
+}
+
+.pomodoro-layer-mid > .face-back-center {
+    transform: rotateY(180deg) translateZ(var(--pomodoro-triangle-height-v));
+}
+
+.pomodoro-layer-mid > .face-front-left {
+    left: 0;
+    transform-origin: left;
+    transform: rotateY(-60deg);
+}
+
+.pomodoro-layer-mid > .face-front-right {
+    right: 0;
+    transform-origin: right;
+    transform: rotateY(60deg);
+}
+
+.pomodoro-layer-mid > .face-back-left {
+    transform-origin: left;
+    transform: translateZ(calc(-1 * var(--pomodoro-triangle-height-v))) rotateY(-120deg);
+}
+
+.pomodoro-layer-mid > .face-back-right {
+    transform-origin: right;
+    transform: translateZ(calc(-1 * var(--pomodoro-triangle-height-v))) rotateY(120deg);
+}
+
+/* top layer faces */
+.pomodoro-layer-top > .face-wrapper {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transform-style: flat;
+}
+
+.pomodoro-layer-top .face {
+    height: var(--pomodoro-top-layer-length-v);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    /* hardcoded perspective. do not change */
+    transform: perspective(114em) rotateX(var(--pomodoro-top-layer-angle-v));
+    transform-origin: bottom;
+}
+
+.pomodoro-layer-top .face-front-center {
+    transform-origin: bottom;
+    transform: translateZ(var(--pomodoro-triangle-height-v)) rotateX(var(--pomodoro-top-layer-angle-v));
+}
+
+
+.pomodoro-layer-top > .face-back-center {
+    transform-origin: bottom;
+    transform: rotateY(180deg) translateZ(var(--pomodoro-triangle-height-v)) rotateX(var(--pomodoro-top-layer-angle-v));
+}
+
+.pomodoro-layer-top > .face-front-left {
+    left: 0;
+    transform-origin: left bottom;
+    transform: rotateY(-60deg) rotateX(var(--pomodoro-top-layer-angle-v));
+}
+
+.pomodoro-layer-top > .face-front-right {
+    right: 0;
+    transform-origin: right bottom;
+    transform: rotateY(60deg) rotateX(var(--pomodoro-top-layer-angle-v));
+}
+
+.pomodoro-layer-top > .face-back-left {
+    transform-origin: left bottom;
+    transform: translateZ(calc(-1 * var(--pomodoro-triangle-height-v))) rotateY(-120deg) rotateX(var(--pomodoro-top-layer-angle-v));
+}
+
+.pomodoro-layer-top > .face-back-right {
+    transform-origin: right bottom;
+    transform: translateZ(calc(-1 * var(--pomodoro-triangle-height-v))) rotateY(120deg) rotateX(var(--pomodoro-top-layer-angle-v));
+}
+
+/* top slice */
+.pomodoro-slice {
+    height: 0;
+}
+
+.pomodoro-slice-top {
+
+}
